@@ -49,7 +49,7 @@ peak=houghpeaks(H,4);
 lines=houghlines(img_avg,theta,rho,peak,'FillGap', 30, 'MinLength', 400); 
 figure;imshow(img),title('Hough Transform Detect Result'),hold on    
 start_x= [];start_y =[];end_x = [];end_y=[];
-%%
+%% ȱ�ݼ��
 i=1;
 for i=1:2
     xy=[lines(i).point1;lines(i).point2];   
@@ -77,17 +77,17 @@ while(1)
         if start_x(j)<0 ||start_y(j)<0 || start_y(j)-p_h<0
             break
         end 
-       proposal1{j}=Y((start_y(j)-p_h:start_y(j)),start_x(j):(start_x(j)+p_w));
-       proposal2{j}=img_avg((start_y(j)-p_h:start_y(j)),start_x(j):(start_x(j)+p_w));
+       proposal1{j}=Y((start_y(j)-p_h:start_y(j)),start_x(j):(start_x(j)+p_w));%�Ҷ�ͼ����
+       proposal2{j}=img_avg((start_y(j)-p_h:start_y(j)),start_x(j):(start_x(j)+p_w));%��ֵͼ�����
      ;
        output{j}= Imentropy(proposal1{j});
        [L1,num1] = bwlabel(proposal2{j}, 8);
         for h=1:num1
-            Areas(j) = sum(L1(:)==h); 
+            Areas(j) = sum(L1(:)==h); % ���
         end
         j=j+1;
-        start_x(j)= start_x(j-1)+p_w;
-        start_y(j) = start_y(j-1)+floor(k*p_w);
+        start_x(j)= start_x(j-1)+p_w;  %x����
+        start_y(j) = start_y(j-1)+floor(k*p_w); %y����
         if start_y(j)<0
             break
         end         
@@ -101,17 +101,17 @@ while(1)
     end 
     
     if (point1(2)-p_h/2+p_h)<im_h 
-       proposal1{j}=im_gray(start_y(j):(start_y(j)+p_h),start_x(j):(start_x(j)+p_w));
-       proposal2{j}=img_avg(start_y(j):(start_y(j)+p_h),start_x(j):(start_x(j)+p_w));
+       proposal1{j}=im_gray(start_y(j):(start_y(j)+p_h),start_x(j):(start_x(j)+p_w));%�Ҷ�ͼ����
+       proposal2{j}=img_avg(start_y(j):(start_y(j)+p_h),start_x(j):(start_x(j)+p_w));%��ֵͼ�����
     
        output{j}= Imentropy(proposal1{j});
        [L1,num1] = bwlabel(proposal2{j}, 8);
        for h=1:num1
-           Areas(j) = sum(L1(:)==h); 
+           Areas(j) = sum(L1(:)==h); % ���
        end
         j=j+1;
-        start_x(j)= start_x(j-1)+p_w;
-        start_y(j) = start_y(j-1)+floor(k*p_w);
+        start_x(j)= start_x(j-1)+p_w;  %x����
+        start_y(j) = start_y(j-1)+floor(k*p_w); %y����
     end
 
 end  
